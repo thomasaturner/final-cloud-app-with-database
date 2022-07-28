@@ -50,12 +50,12 @@
                     </div>
                 {% endfor %}
             </div>
-            
         {% if user.is_authenticated %}
-            <p>Click here to view and take the exam.</p>
+        <br>
+            <p><b>Click here to view and take the exam.</b></p>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#exam">Start Exam</button>
                 <div id="exam" class="collapse">
-                    <form id="questionform" action="/exam_result_bootstrap.html" method="POST">
+                    <form id="questionform" action="{% url 'onlinecourse:submit' course.id %}" method="POST">
                         {% for question in course.question_set.all %}
                         <div class="card mt-1">
                         <div class="card-header"><h5>{{ question.question_text }}</h5></div>
