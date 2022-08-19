@@ -55,17 +55,17 @@
             <div class = "card-columns-vertical">
                 <div class="card mt-1 bg-white" style="width: 36rem;">
                     <div class="card mt-1 bg-light">
-                        <h5 class="card-title"> {{ question.content }} </h5>
+                        <h5 class="card-title"> {{ question.question_text }} </h5>
                     </div>
                     {% for choice in question.choice_set.all %}
                     {% if choice.is_correct %}
-                    <p class = "card-text text-success">Correct answer: {{ choice.content }}</p>
+                    <p class = "card-text text-success">Correct answer: {{ choice.choice_text }}</p>
                     {% elif choice.is_correct and choice not in choices %}
-                            <p class="card-text text-warning">{{ choice.content}}</p>
+                            <p class="card-text text-warning"> Not selected: {{ choice.choice_text}}</p>
                         {% elif choice in choices %}
-                            <p class="card-text text-danger">{{ choice.content}}</p>
+                            <p class="card-text text-danger">{{ choice.choice_text}}</p>
                     {% else %}
-                    <p class="card-text text">{{ choice.content}}</p>
+                    <p class="card-text text">{{ choice.choice_text}}</p>
                     {% endif %}
                 {% endfor %}
                 </div>
