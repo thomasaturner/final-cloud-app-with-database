@@ -49,29 +49,28 @@
         <a class="btn btn-link text-danger" href="{% url 'onlinecourse:course_details' course.id %}">Re-test</a>
         {% endif %}
         <div class="card-columns-vertical mt-1">
-        <h5 class="container-fluid">Exam results</h5>
-            <!--HINT Display exam results-->
+            <h5 class="">Exam results</h5>
             {% for question in course.question_set.all %}
-            <div class = "card-columns-vertical">
-                <div class="card mt-1 bg-white" style="width: 36rem;">
-                    <div class="card mt-1 bg-light">
-                        <h5 class="card-title"> {{ question.question_text }} </h5>
-                    </div>
+            <div class="card mt-1">
+                <div class="card-header"><h5>{{ question.cquestion_text }}</h5></div>
+                <div class="form-group">
                     {% for choice in question.choice_set.all %}
-                    {% if choice.is_correct %}
-                    <p class = "card-text text-success">Correct answer: {{ choice.choice_text }}</p>
-                    {% elif choice.is_correct and choice not in choices %}
-                            <p class="card-text text-warning"> Not selected: {{ choice.choice_text}}</p>
-                        {% elif choice in choices %}
-                            <p class="card-text text-danger">{{ choice.choice_text}}</p>
-                    {% else %}
-                    <p class="card-text text">{{ choice.choice_text}}</p>
-                    {% endif %}
-                {% endfor %}
+                    <div class="form-check">
+                        {% if choice.is_correct and choice in choices %}
+                        <div class="text-success">Correct answer: {{ choice.choice_text }}</div>
+                        {% else %}{% if choice.is_correct and not choice in choices %}
+                        <div class="text-warning">Not selected: {{ choice.choice_text }}</div>
+                        {% else %}{% if not choice.is_correct and choice in choices %}
+                        <div class="text-danger">Wrong answer: {{ choice.choice_text }}</div>
+                        {% else %}
+                        <div>{{ choice.choice_text }}</div>
+                        {% endif %}{% endif %}{% endif %}
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            {% endfor %}  
+            {% endfor %}
         </div>
-</div>
+    </div>
 </body>
 </html>
